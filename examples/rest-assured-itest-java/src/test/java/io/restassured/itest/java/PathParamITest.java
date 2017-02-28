@@ -55,6 +55,11 @@ public class PathParamITest extends WithJetty {
     }
 
     @Test
+    public void supportsPassingPathParamsThatContainCurly() throws Exception {
+        expect().body("fullName", equalTo("foo {bar}")).when().get("/{firstName}/{lastName}", "foo", "{bar}");
+    }
+
+    @Test
     public void possibleToGetOriginalRequestPathForUnnamedPathParamsFromRequestSpec() throws Exception {
         given().
                 filter((requestSpec, responseSpec, ctx) -> {
